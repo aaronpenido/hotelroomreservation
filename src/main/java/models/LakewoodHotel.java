@@ -1,9 +1,6 @@
 package models;
 
-import enums.CustomerType;
 import java.math.BigDecimal;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 
 public class LakewoodHotel implements Hotel {
 
@@ -13,19 +10,22 @@ public class LakewoodHotel implements Hotel {
     }
 
     @Override
-    public BigDecimal getPrice(LocalDate localDate, CustomerType customerType) {
-        if (customerType.equals(CustomerType.REGULAR)) {
-            if (isWeekendDay(localDate)) {
-                return BigDecimal.valueOf(90l);
-            }
-            return BigDecimal.valueOf(110l);
-        }
+    public BigDecimal getWeekDayPriceForRegularCustomer() {
+        return BigDecimal.valueOf(110l);
+    }
 
+    @Override
+    public BigDecimal getWeekDayPriceForRewardsCustomer() {
         return BigDecimal.valueOf(80l);
     }
 
-    private boolean isWeekendDay(LocalDate localDate) {
-        return localDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
-                localDate.getDayOfWeek().equals(DayOfWeek.SUNDAY);
+    @Override
+    public BigDecimal getWeekendDayPriceForRegularCustomer() {
+        return BigDecimal.valueOf(90l);
+    }
+
+    @Override
+    public BigDecimal getWeekendDayPriceForRewardsCustomer() {
+        return BigDecimal.valueOf(80l);
     }
 }
