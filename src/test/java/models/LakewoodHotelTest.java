@@ -34,13 +34,6 @@ public class LakewoodHotelTest {
     }
 
     @Test
-    public void weekendDayCosts90ForRegularCustomer() {
-        BigDecimal price = lakewoodHotel.getPrice(weekendDay, regularCustomerType);
-
-        assertThat(price.intValue()).isEqualTo(90);
-    }
-
-    @Test
     public void weekDayCosts80ForRewardsCustomer() {
         BigDecimal price = lakewoodHotel.getPrice(weekDay, rewardsCustomerType);
 
@@ -48,7 +41,14 @@ public class LakewoodHotelTest {
     }
 
     @Test
-    public void weekendDayCosts80ForRegularCustomer() {
+    public void weekendDayCosts90ForRegularCustomer() {
+        BigDecimal price = lakewoodHotel.getPrice(weekendDay, regularCustomerType);
+
+        assertThat(price.intValue()).isEqualTo(90);
+    }
+
+    @Test
+    public void weekendDayCosts80ForRewardsCustomer() {
         BigDecimal price = lakewoodHotel.getPrice(weekendDay, rewardsCustomerType);
 
         assertThat(price.intValue()).isEqualTo(80);
