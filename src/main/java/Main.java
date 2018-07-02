@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args)  {
         IOReader ioReader = new ConsoleReader();
         CustomerTypeReader customerTypeInputReader = new CustomerTypeReader(ioReader);
-        DateReader dateReader = new DateReader();
+        DateReader dateReader = new DateReader(ioReader);
         OutputWriter outputWriter = new OutputWriter();
 
         HotelFinder hotelFinder = new HotelFinder(customerTypeInputReader, dateReader);
