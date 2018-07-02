@@ -3,7 +3,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import readers.CustomerTypeInputReader;
+import readers.CustomerTypeReader;
 import readers.DateReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +13,7 @@ public class HotelFinderTest {
 
     private HotelFinder hotelFinder;
     @Mock
-    private CustomerTypeInputReader customerTypeInputReader;
+    private CustomerTypeReader customerTypeInputReader;
     @Mock
     private DateReader dateReader;
 

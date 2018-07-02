@@ -1,14 +1,14 @@
 import models.Hotel;
 import models.LakewoodHotel;
-import readers.CustomerTypeInputReader;
+import readers.CustomerTypeReader;
 import readers.DateReader;
 
 public class HotelFinder {
 
-    private CustomerTypeInputReader customerTypeInputReader;
+    private CustomerTypeReader customerTypeInputReader;
     private DateReader dateReader;
 
-    public HotelFinder(CustomerTypeInputReader customerTypeInputReader, DateReader dateReader) {
+    public HotelFinder(CustomerTypeReader customerTypeInputReader, DateReader dateReader) {
         this.customerTypeInputReader = customerTypeInputReader;
         this.dateReader = dateReader;
     }

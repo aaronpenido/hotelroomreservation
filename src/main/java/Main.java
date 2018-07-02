@@ -1,12 +1,15 @@
 import models.Hotel;
-import readers.CustomerTypeInputReader;
+import models.io.ConsoleReader;
+import models.io.IOReader;
+import readers.CustomerTypeReader;
 import readers.DateReader;
 import writers.OutputWriter;
 
 public class Main {
 
     public static void main(String[] args)  {
-        CustomerTypeInputReader customerTypeInputReader = new CustomerTypeInputReader();
+        IOReader ioReader = new ConsoleReader();
+        CustomerTypeReader customerTypeInputReader = new CustomerTypeReader(ioReader);
         DateReader dateReader = new DateReader();
         OutputWriter outputWriter = new OutputWriter();
 
