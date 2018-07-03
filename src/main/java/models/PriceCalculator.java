@@ -3,8 +3,6 @@ package models;
 import enums.CustomerType;
 
 import java.math.BigDecimal;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 
 public class PriceCalculator {
 
