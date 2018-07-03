@@ -1,4 +1,8 @@
+import models.BridgewoodHotel;
 import models.Hotel;
+import models.LakewoodHotel;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -12,17 +16,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class HotelFinderTest {
 
     private HotelFinder hotelFinder;
-    @Mock
-    private CustomerTypeReader customerTypeInputReader;
-    @Mock
-    private DateReader dateReader;
 
+    @Ignore
     @Test
-    public void findBestHotel() {
-        hotelFinder = new HotelFinder(customerTypeInputReader, dateReader);
-
+    public void lakewoodIsTheCheapestHotelForRegularCustomerOnASingleWeekDay() {
         Hotel bestHotel = hotelFinder.findBestHotel();
 
-        assertThat(bestHotel).isNotNull();
+        assertThat(bestHotel).isInstanceOf(LakewoodHotel.class);
+    }
+
+    @Ignore
+    @Test
+    public void bridgewoodIsTheCheapestHotelForRegularCustomerOnASingleWeekendDay() {
+        Hotel bestHotel = hotelFinder.findBestHotel();
+
+        assertThat(bestHotel).isInstanceOf(BridgewoodHotel.class);
     }
 }

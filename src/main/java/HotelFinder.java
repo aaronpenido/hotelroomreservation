@@ -1,17 +1,15 @@
+import enums.CustomerType;
+import models.PriceQuote;
 import models.Hotel;
 import models.LakewoodHotel;
+import models.PriceCalculator;
 import readers.CustomerTypeReader;
 import readers.DateReader;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class HotelFinder {
-
-    private CustomerTypeReader customerTypeInputReader;
-    private DateReader dateReader;
-
-    public HotelFinder(CustomerTypeReader customerTypeInputReader, DateReader dateReader) {
-        this.customerTypeInputReader = customerTypeInputReader;
-        this.dateReader = dateReader;
-    }
 
     public Hotel findBestHotel() {
         return new LakewoodHotel();
