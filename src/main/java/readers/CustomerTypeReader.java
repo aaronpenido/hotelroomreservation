@@ -13,9 +13,8 @@ public class CustomerTypeReader {
     }
 
     public CustomerType read() throws InvalidCustomerTypeException {
-        String customerType = ioReader.read();
-
         try {
+            String customerType = ioReader.read();
             return CustomerType.valueOf(customerType.toUpperCase());
         } catch(Exception exception) {
             throw new InvalidCustomerTypeException();

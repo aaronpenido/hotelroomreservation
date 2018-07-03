@@ -27,7 +27,7 @@ public class CustomerTypeReaderTest {
     }
 
     @Test
-    public void readRegularCustomer() throws InvalidCustomerTypeException {
+    public void readRegularCustomer() {
         when(ioReader.read()).thenReturn("Regular");
 
         CustomerType customerType = customerTypeReader.read();
@@ -36,7 +36,7 @@ public class CustomerTypeReaderTest {
     }
 
     @Test
-    public void readRewardsCustomerType() throws InvalidCustomerTypeException {
+    public void readRewardsCustomerType() {
         when(ioReader.read()).thenReturn("Rewards");
 
         CustomerType customerType = customerTypeReader.read();
