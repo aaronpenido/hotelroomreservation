@@ -9,12 +9,14 @@ import java.time.LocalDate;
 public class PriceCalculator {
 
     private Hotel hotel;
+    private PriceQuote priceQuote;
 
-    public PriceCalculator(Hotel hotel) {
+    public PriceCalculator(Hotel hotel, PriceQuote priceQuote) {
         this.hotel = hotel;
+        this.priceQuote = priceQuote;
     }
 
-    public BigDecimal calculate(PriceQuote priceQuote) {
+    public BigDecimal calculate() {
         if (isWeekendDay(priceQuote.getDate())) {
             return getWeekendDayPrice(priceQuote.getCustomerType());
         }
