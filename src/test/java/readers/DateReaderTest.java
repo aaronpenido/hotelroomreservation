@@ -1,5 +1,6 @@
 package readers;
 
+import exceptions.DateNotInformedException;
 import exceptions.InvalidDateException;
 import models.io.IOReader;
 import org.junit.Before;
@@ -10,6 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -29,36 +32,46 @@ public class DateReaderTest {
     }
 
     @Test
-    public void readValidDate() throws InvalidDateException {
-        String validDate = "02Jul2018(Mon)";
-        LocalDate expectedDate = LocalDate.of(2018, Month.JULY, 02);
+    public void readValidDates() {
+        String validDates = "02Jul2018(Mon),03Jul2018(Tue)";
+        List<LocalDate> expectedDates = Arrays.asList(
+                LocalDate.of(2018, Month.JULY, 02),
+                LocalDate.of(2018, Month.JULY, 03));
 
-        when(ioReader.read()).thenReturn(validDate);
+        when(ioReader.read()).thenReturn(validDates);
 
-        LocalDate date = dateReader.read();
+        List<LocalDate> dates = dateReader.read();
 
-        assertThat(date).isEqualTo(expectedDate);
+        assertThat(dates).isEqualTo(expectedDates);
     }
 
     @Test
-    public void throwInvalidDateExceptionWhenDateIsNull() {
+    public void throwDateNotInformedExceptionWhenDateIsNull() {
         when(ioReader.read()).thenReturn(null);
 
         assertThatThrownBy(() -> dateReader.read())
-                .isInstanceOf(InvalidDateException.class);
+                .isInstanceOf(DateNotInformedException.class);
     }
 
     @Test
-    public void throwInvalidDateExceptionWhenDateIsEmpty() {
+    public void throwDateNotInformedExceptionWhenDateIsEmpty() {
         when(ioReader.read()).thenReturn("");
 
         assertThatThrownBy(() -> dateReader.read())
-                .isInstanceOf(InvalidDateException.class);
+                .isInstanceOf(DateNotInformedException.class);
     }
 
     @Test
     public void throwInvalidDateExceptionWhenDateIsInvalid() {
         when(ioReader.read()).thenReturn("invalidDate");
+
+        assertThatThrownBy(() -> dateReader.read())
+                .isInstanceOf(InvalidDateException.class);
+    }
+
+    @Test
+    public void throwInvalidDateExceptionWhenHasInvalidDate() {
+        when(ioReader.read()).thenReturn("02Jul2018(Mon),invalidDate");
 
         assertThatThrownBy(() -> dateReader.read())
                 .isInstanceOf(InvalidDateException.class);
