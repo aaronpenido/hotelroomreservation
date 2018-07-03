@@ -6,9 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import readers.CustomerTypeReader;
+import readers.DateReader;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -16,23 +20,37 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PriceCalculatorTest {
 
+    private final CustomerType regularCustomerType = CustomerType.REGULAR;
+    private final CustomerType rewardsCustomerType = CustomerType.REWARDS;
+    private final LocalDate weekDay = LocalDate.of(2018, 6, 19);
+    private final LocalDate weekendDay = LocalDate.of(2018, 6, 17);
+
     private PriceCalculator priceCalculator;
+
+    private PriceQuote priceQuote;
 
     @Mock
     private Hotel hotel;
-    private CustomerType regularCustomerType = CustomerType.REGULAR;
-    private CustomerType rewardsCustomerType = CustomerType.REWARDS;
-    private LocalDate weekDay = LocalDate.of(2018, 6, 19);
-    private LocalDate weekendDay = LocalDate.of(2018, 6, 17);
+
+    @Mock
+    private CustomerTypeReader customerTypeReader;
+
+    @Mock
+    private DateReader dateReader;
+
+    @Before
+    public void setUp() {
+        priceQuote = new PriceQuote(customerTypeReader, dateReader);
+        priceCalculator = new PriceCalculator(hotel, priceQuote);
+    }
 
     @Test
     public void weekDayCostsForRegularCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(10L);
-        PriceQuote priceQuote = new PriceQuote(weekDay, regularCustomerType);
 
+        when(customerTypeReader.read()).thenReturn(regularCustomerType);
+        when(dateReader.read()).thenReturn(Collections.singletonList(weekDay));
         when(hotel.getWeekDayPriceForRegularCustomer()).thenReturn(expectedValue);
-
-        priceCalculator = new PriceCalculator(hotel, priceQuote);
 
         BigDecimal price = priceCalculator.calculate();
 
@@ -40,13 +58,12 @@ public class PriceCalculatorTest {
     }
 
     @Test
-    public void wekDayCostsForRewardsCustomer() {
+    public void weekDayCostsForRewardsCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(20L);
-        PriceQuote priceQuote = new PriceQuote(weekDay, rewardsCustomerType);
 
+        when(customerTypeReader.read()).thenReturn(rewardsCustomerType);
+        when(dateReader.read()).thenReturn(Collections.singletonList(weekDay));
         when(hotel.getWeekDayPriceForRewardsCustomer()).thenReturn(expectedValue);
-
-        priceCalculator = new PriceCalculator(hotel, priceQuote);
 
         BigDecimal price = priceCalculator.calculate();
 
@@ -56,11 +73,11 @@ public class PriceCalculatorTest {
     @Test
     public void weekendDayCostsForRegularCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(30L);
-        PriceQuote priceQuote = new PriceQuote(weekendDay, regularCustomerType);
 
+        when(customerTypeReader.read()).thenReturn(regularCustomerType);
+        when(dateReader.read()).thenReturn(Collections.singletonList(weekendDay));
         when(hotel.getWeekendDayPriceForRegularCustomer()).thenReturn(expectedValue);
 
-        priceCalculator = new PriceCalculator(hotel, priceQuote);
 
         BigDecimal price = priceCalculator.calculate();
 
@@ -70,11 +87,42 @@ public class PriceCalculatorTest {
     @Test
     public void weekendDayCostsForRewardsCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(40L);
-        PriceQuote priceQuote = new PriceQuote(weekendDay, rewardsCustomerType);
 
+        when(customerTypeReader.read()).thenReturn(rewardsCustomerType);
+        when(dateReader.read()).thenReturn(Collections.singletonList(weekendDay));
         when(hotel.getWeekendDayPriceForRewardsCustomer()).thenReturn(expectedValue);
 
-        priceCalculator = new PriceCalculator(hotel, priceQuote);
+        BigDecimal price = priceCalculator.calculate();
+
+        assertThat(price).isEqualTo(expectedValue);
+    }
+
+    @Test
+    public void weekDayAndWeekendDayCostsForRegularCustomer() {
+        BigDecimal weekDayValue = BigDecimal.valueOf(40L);
+        BigDecimal weekendDayValue = BigDecimal.valueOf(60L);
+        BigDecimal expectedValue = BigDecimal.valueOf(100L);
+
+        when(customerTypeReader.read()).thenReturn(regularCustomerType);
+        when(dateReader.read()).thenReturn(Arrays.asList(weekDay, weekendDay));
+        when(hotel.getWeekDayPriceForRegularCustomer()).thenReturn(weekDayValue);
+        when(hotel.getWeekendDayPriceForRegularCustomer()).thenReturn(weekendDayValue);
+
+        BigDecimal price = priceCalculator.calculate();
+
+        assertThat(price).isEqualTo(expectedValue);
+    }
+
+    @Test
+    public void weekDayAndWeekendDayCostsForRewardsCustomer() {
+        BigDecimal weekDayValue = BigDecimal.valueOf(40L);
+        BigDecimal weekendDayValue = BigDecimal.valueOf(60L);
+        BigDecimal expectedValue = BigDecimal.valueOf(100L);
+
+        when(customerTypeReader.read()).thenReturn(rewardsCustomerType);
+        when(dateReader.read()).thenReturn(Arrays.asList(weekDay, weekendDay));
+        when(hotel.getWeekDayPriceForRewardsCustomer()).thenReturn(weekDayValue);
+        when(hotel.getWeekendDayPriceForRewardsCustomer()).thenReturn(weekendDayValue);
 
         BigDecimal price = priceCalculator.calculate();
 

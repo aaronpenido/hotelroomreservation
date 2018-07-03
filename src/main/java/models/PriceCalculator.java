@@ -17,7 +17,14 @@ public class PriceCalculator {
     }
 
     public BigDecimal calculate() {
-        if (isWeekendDay(priceQuote.getDate())) {
+        return priceQuote.getDates()
+                .stream()
+                .map(this::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private BigDecimal getPrice(LocalDate date) {
+        if (isWeekendDay(date)) {
             return getWeekendDayPrice(priceQuote.getCustomerType());
         }
 

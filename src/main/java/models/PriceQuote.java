@@ -1,25 +1,27 @@
 package models;
 
 import enums.CustomerType;
+import readers.CustomerTypeReader;
+import readers.DateReader;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class PriceQuote {
 
-    private final LocalDate date;
-    private final CustomerType customerType;
+    private final CustomerTypeReader customerTypeReader;
+    private final DateReader dateReader;
 
-    public PriceQuote(LocalDate date, CustomerType customerType) {
-        this.date = date;
-        this.customerType = customerType;
+    public PriceQuote(CustomerTypeReader customerTypeReader, DateReader dateReader) {
+        this.customerTypeReader = customerTypeReader;
+        this.dateReader = dateReader;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public List<LocalDate> getDates() {
+        return dateReader.read();
     }
 
     public CustomerType getCustomerType() {
-        return customerType;
+        return customerTypeReader.read();
     }
 }
