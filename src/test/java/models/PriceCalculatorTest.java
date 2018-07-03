@@ -33,10 +33,11 @@ public class PriceCalculatorTest {
     @Test
     public void weekDayCostsForRegularCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(10L);
+        PriceQuote priceQuote = new PriceQuote(weekDay, regularCustomerType);
 
         when(hotel.getWeekDayPriceForRegularCustomer()).thenReturn(expectedValue);
 
-        BigDecimal price = priceCalculator.calculate(weekDay, regularCustomerType);
+        BigDecimal price = priceCalculator.calculate(priceQuote);
 
         assertThat(price).isEqualTo(expectedValue);
     }
@@ -44,10 +45,11 @@ public class PriceCalculatorTest {
     @Test
     public void wekDayCostsForRewardsCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(20L);
+        PriceQuote priceQuote = new PriceQuote(weekDay, rewardsCustomerType);
 
         when(hotel.getWeekDayPriceForRewardsCustomer()).thenReturn(expectedValue);
 
-        BigDecimal price = priceCalculator.calculate(weekDay, rewardsCustomerType);
+        BigDecimal price = priceCalculator.calculate(priceQuote);
 
         assertThat(price).isEqualTo(expectedValue);
     }
@@ -55,10 +57,11 @@ public class PriceCalculatorTest {
     @Test
     public void weekendDayCostsForRegularCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(30L);
+        PriceQuote priceQuote = new PriceQuote(weekendDay, regularCustomerType);
 
         when(hotel.getWeekendDayPriceForRegularCustomer()).thenReturn(expectedValue);
 
-        BigDecimal price = priceCalculator.calculate(weekendDay, regularCustomerType);
+        BigDecimal price = priceCalculator.calculate(priceQuote);
 
         assertThat(price).isEqualTo(expectedValue);
     }
@@ -66,10 +69,11 @@ public class PriceCalculatorTest {
     @Test
     public void weekendDayCostsForRewardsCustomer() {
         BigDecimal expectedValue = BigDecimal.valueOf(40L);
+        PriceQuote priceQuote = new PriceQuote(weekendDay, rewardsCustomerType);
 
         when(hotel.getWeekendDayPriceForRewardsCustomer()).thenReturn(expectedValue);
 
-        BigDecimal price = priceCalculator.calculate(weekendDay, rewardsCustomerType);
+        BigDecimal price = priceCalculator.calculate(priceQuote);
 
         assertThat(price).isEqualTo(expectedValue);
     }

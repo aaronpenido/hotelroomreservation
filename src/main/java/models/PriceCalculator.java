@@ -14,12 +14,12 @@ public class PriceCalculator {
         this.hotel = hotel;
     }
 
-    public BigDecimal calculate(LocalDate localDate, CustomerType customerType) {
-        if (isWeekendDay(localDate)) {
-            return getWeekendDayPrice(customerType);
+    public BigDecimal calculate(PriceQuote priceQuote) {
+        if (isWeekendDay(priceQuote.getDate())) {
+            return getWeekendDayPrice(priceQuote.getCustomerType());
         }
 
-        return getWeekDayPrice(customerType);
+        return getWeekDayPrice(priceQuote.getCustomerType());
     }
 
     private BigDecimal getWeekDayPrice(CustomerType customerType) {
