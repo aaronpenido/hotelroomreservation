@@ -22,8 +22,8 @@ public class PriceCalculatorTest {
 
     private final CustomerType regularCustomerType = CustomerType.REGULAR;
     private final CustomerType rewardsCustomerType = CustomerType.REWARDS;
-    private final LocalDate weekDay = LocalDate.of(2018, 6, 19);
-    private final LocalDate weekendDay = LocalDate.of(2018, 6, 17);
+    private final Date weekDay = new Date(LocalDate.of(2018, 6, 19));
+    private final Date weekendDay = new Date(LocalDate.of(2018, 6, 17));
 
     private PriceCalculator priceCalculator;
 

@@ -2,6 +2,7 @@ package readers;
 
 import exceptions.DateNotInformedException;
 import exceptions.InvalidDateException;
+import models.Date;
 import models.io.IOReader;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,13 +35,13 @@ public class DateReaderTest {
     @Test
     public void readValidDates() {
         String validDates = "02Jul2018(Mon),03Jul2018(Tue)";
-        List<LocalDate> expectedDates = Arrays.asList(
-                LocalDate.of(2018, Month.JULY, 02),
-                LocalDate.of(2018, Month.JULY, 03));
+        List<Date> expectedDates = Arrays.asList(
+                new Date(LocalDate.of(2018, Month.JULY, 02)),
+                new Date(LocalDate.of(2018, Month.JULY, 03)));
 
         when(ioReader.read()).thenReturn(validDates);
 
-        List<LocalDate> dates = dateReader.read();
+        List<Date> dates = dateReader.read();
 
         assertThat(dates).isEqualTo(expectedDates);
     }

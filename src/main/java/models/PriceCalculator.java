@@ -23,8 +23,8 @@ public class PriceCalculator {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private BigDecimal getPrice(LocalDate date) {
-        if (isWeekendDay(date)) {
+    private BigDecimal getPrice(Date date) {
+        if (date.isWeekendDay()) {
             return getWeekendDayPrice(priceQuote.getCustomerType());
         }
 
@@ -44,10 +44,5 @@ public class PriceCalculator {
             return hotel.getWeekendDayPriceForRegularCustomer();
         }
         return hotel.getWeekendDayPriceForRewardsCustomer();
-    }
-
-    private boolean isWeekendDay(LocalDate localDate) {
-        return localDate.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
-                localDate.getDayOfWeek().equals(DayOfWeek.SUNDAY);
     }
 }

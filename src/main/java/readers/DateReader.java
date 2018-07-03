@@ -2,12 +2,12 @@ package readers;
 
 import exceptions.DateNotInformedException;
 import exceptions.InvalidDateException;
+import models.Date;
 import models.io.IOReader;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -20,12 +20,12 @@ public class DateReader {
         this.ioReader = ioReader;
     }
 
-    public List<LocalDate> read() throws DateNotInformedException, InvalidDateException {
+    public List<Date> read() throws DateNotInformedException, InvalidDateException {
         String dates = readDates();
         throwDateNotInformedExceptionIfDatesAreNullOrEmpty(dates);
         List<String> dateList = dateListFromString(dates);
 
-        return mapStringDatesToLocalDateList(dateList);
+        return mapStringDatesToDateList(dateList);
     }
 
     private String readDates() {
@@ -43,17 +43,17 @@ public class DateReader {
         return Arrays.asList(dates.split(splitter));
     }
 
-    private List<LocalDate> mapStringDatesToLocalDateList(List<String> dateList) {
+    private List<Date> mapStringDatesToDateList(List<String> dateList) {
         return dateList
                 .stream()
                 .map(this::parseDate)
                 .collect(Collectors.toList());
     }
 
-    private LocalDate parseDate(String date) {
+    private Date parseDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMyyyy(EEE)", Locale.ENGLISH);
-            return LocalDate.parse(date, formatter);
+            return new Date(date, formatter);
         } catch (Exception exception) {
             throw new InvalidDateException();
         }

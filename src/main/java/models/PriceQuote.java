@@ -3,8 +3,6 @@ package models;
 import enums.CustomerType;
 import readers.CustomerTypeReader;
 import readers.DateReader;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public class PriceQuote {
@@ -17,7 +15,7 @@ public class PriceQuote {
         this.dateReader = dateReader;
     }
 
-    public List<LocalDate> getDates() {
+    public List<Date> getDates() {
         return dateReader.read();
     }
 
