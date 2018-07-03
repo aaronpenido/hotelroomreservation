@@ -18,7 +18,7 @@ public class Main {
 
         OutputWriter outputWriter = new OutputWriter(ioWriter);
 
-        HotelFinder hotelFinder = new HotelFinder(customerTypeInputReader, dateReader);
+        HotelFinder hotelFinder = new HotelFinder();
         Hotel bestHotel = hotelFinder.findBestHotel();
 
         outputWriter.write(bestHotel);
