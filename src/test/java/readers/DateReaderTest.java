@@ -28,7 +28,7 @@ public class DateReaderTest {
 
     @Before
     public void setUp() {
-        dateReader = new DateReader(ioReader);
+        dateReader = new CommandLineDateReader(ioReader);
     }
 
     @Test
