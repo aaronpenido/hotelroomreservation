@@ -1,13 +1,13 @@
 package models;
 
 import enums.CustomerType;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import readers.CustomerTypeReader;
 import readers.DateReader;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
