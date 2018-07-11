@@ -1,8 +1,11 @@
 package models;
 
+import exceptions.InvalidDateException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 public class Date {
@@ -14,7 +17,15 @@ public class Date {
     }
 
     public Date(String date, DateTimeFormatter formatter) {
-        this.localDate = LocalDate.parse(date, formatter);
+        this.localDate = parseDate(date, formatter);
+    }
+
+    private LocalDate parseDate(String date, DateTimeFormatter formatter) {
+        try {
+            return LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new InvalidDateException();
+        }
     }
 
     public LocalDate getLocalDate() {

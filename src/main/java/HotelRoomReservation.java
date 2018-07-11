@@ -24,11 +24,11 @@ public class HotelRoomReservation {
     OutputWriter outputWriter = new OutputWriter(ioWriter);
 
     public void findBestHotel() {
+        writeInputMessage();
+
         PriceQuote priceQuote = new PriceQuote(customerTypeReader, dateReader);
 
         HotelFinder hotelFinder = new HotelFinder(hotels, priceQuote);
-
-        writeInputMessage();
 
         Hotel bestHotel = hotelFinder.findBestHotel();
 

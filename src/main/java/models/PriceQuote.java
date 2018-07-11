@@ -7,19 +7,19 @@ import java.util.List;
 
 public class PriceQuote {
 
-    private final CustomerTypeReader customerTypeReader;
-    private final DateReader dateReader;
+    private final CustomerType customerType;
+    private final List<Date> dates;
 
     public PriceQuote(CustomerTypeReader customerTypeReader, DateReader dateReader) {
-        this.customerTypeReader = customerTypeReader;
-        this.dateReader = dateReader;
-    }
-
-    public List<Date> getDates() {
-        return dateReader.read();
+        this.customerType = customerTypeReader.read();
+        this.dates = dateReader.read();
     }
 
     public CustomerType getCustomerType() {
-        return customerTypeReader.read();
+        return customerType;
+    }
+
+    public List<Date> getDates() {
+        return dates;
     }
 }
