@@ -23,7 +23,7 @@ public class CustomerTypeReaderTest {
 
     @Before
     public void setUp() {
-        customerTypeReader = new CommandLineCustomerTypeReader(ioReader);
+        customerTypeReader = new CustomerTypeReader(ioReader);
     }
 
     @Test
