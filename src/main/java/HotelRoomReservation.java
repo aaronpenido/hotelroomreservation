@@ -7,6 +7,7 @@ import models.io.ConsoleReader;
 import models.io.ConsoleWriter;
 import models.io.IOReader;
 import models.io.IOWriter;
+import readers.CommandLineCustomerTypeReader;
 import readers.CustomerTypeReader;
 import readers.DateReader;
 import writers.OutputWriter;
@@ -18,7 +19,7 @@ public class HotelRoomReservation {
 
     private List<Hotel> hotels = Arrays.asList(new BridgewoodHotel(), new LakewoodHotel(), new RidgewoodHotel());
     private IOReader ioReader = new ConsoleReader();
-    private CustomerTypeReader customerTypeReader = new CustomerTypeReader(ioReader);
+    private CustomerTypeReader customerTypeReader = new CommandLineCustomerTypeReader(ioReader);
     private DateReader dateReader = new DateReader(ioReader);
     private IOWriter ioWriter = new ConsoleWriter();
 
